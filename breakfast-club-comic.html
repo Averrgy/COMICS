@@ -91,6 +91,7 @@
             margin-bottom: 2rem;
             cursor: pointer;
             transition: background-color 0.3s;
+            object-fit: cover;
         }
 
         .chapter-logo:hover {
@@ -308,7 +309,8 @@
     <!-- Chapter Introduction Page -->
     <div id="chapter-intro" class="main-content">
         <div class="chapter-intro">
-            <div class="chapter-logo" onclick="alert('Replace this with your comic logo!')">
+            <img src="images/chapter-logo.png" alt="Chapter Logo" class="chapter-logo" onclick="alert('Replace this with your comic logo!')" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="chapter-logo" onclick="alert('Replace this with your comic logo!')" style="display: none;">
                 🍳 COMIC LOGO
             </div>
             
@@ -356,67 +358,67 @@
             {
                 id: 1,
                 description: "Myles starts his perfect morning with a smile and coffee",
-                imageUrl: null, // Replace with actual image URL
+                imageUrl: "images/panels/panel-1.png",
                 placeholder: "📷 Panel 1: Myles enjoying his morning coffee with a big smile"
             },
             {
                 id: 2,
                 description: "Myles expresses his love for the beautiful day and his coffee",
-                imageUrl: null,
+                imageUrl: "images/panels/panel-2.png",
                 placeholder: "📷 Panel 2: Myles talking about the beautiful day and his beloved coffee"
             },
             {
                 id: 3,
                 description: "The phone rings - someone is calling Myles",
-                imageUrl: null,
+                imageUrl: "images/panels/panel-3.png",
                 placeholder: "📷 Panel 3: Myles notices he's getting a phone call"
             },
             {
                 id: 4,
                 description: "Myles answers the phone with a friendly 'Hello?'",
-                imageUrl: null,
+                imageUrl: "images/panels/panel-4.png",
                 placeholder: "📷 Panel 4: Myles answering the phone"
             },
             {
                 id: 5,
                 description: "Emergency call - someone needs help right away",
-                imageUrl: null,
+                imageUrl: "images/panels/panel-5.png",
                 placeholder: "📷 Panel 5: The caller explains there's an emergency"
             },
             {
                 id: 6,
                 description: "Myles realizes his perfect day is about to be ruined",
-                imageUrl: null,
+                imageUrl: "images/panels/panel-6.png",
                 placeholder: "📷 Panel 6: Myles' expression changes as he realizes what this means"
             },
             {
                 id: 7,
                 description: "Myles is now outside, frustrated that his day was interrupted",
-                imageUrl: null,
+                imageUrl: "images/panels/panel-7.png",
                 placeholder: "📷 Panel 7: Myles outside, clearly unhappy about the situation"
             },
             {
                 id: 8,
                 description: "Myles complains about having his day off interrupted",
-                imageUrl: null,
+                imageUrl: "images/panels/panel-8.png",
                 placeholder: "📷 Panel 8: Myles venting his frustration about the interruption"
             },
             {
                 id: 9,
                 description: "Avery thanks Myles for coming on such short notice",
-                imageUrl: null,
+                imageUrl: "images/panels/panel-9.png",
                 placeholder: "📷 Panel 9: Avery appreciating Myles for showing up"
             },
             {
                 id: 10,
                 description: "Dan challenges them to a battle",
-                imageUrl: null,
+                imageUrl: "images/panels/panel-10.png",
                 placeholder: "📷 Panel 10: Dan issuing a challenge for a battle"
             },
             {
                 id: 11,
                 description: "Jase is excited and ready to fight",
-                imageUrl: null,
+                imageUrl: "images/panels/panel-11.png",
                 placeholder: "📷 Panel 11: Jase enthusiastically ready for the battle"
             }
         ];
@@ -439,7 +441,15 @@
 
             // Update panel display
             if (panel.imageUrl) {
-                panelElement.innerHTML = `<img src="${panel.imageUrl}" alt="Panel ${panel.id}" class="panel-image">`;
+                // Try to load the image, fall back to placeholder if it fails
+                const img = new Image();
+                img.onload = function() {
+                    panelElement.innerHTML = `<img src="${panel.imageUrl}" alt="Panel ${panel.id}" class="panel-image">`;
+                };
+                img.onerror = function() {
+                    panelElement.innerHTML = panel.placeholder;
+                };
+                img.src = panel.imageUrl;
             } else {
                 panelElement.innerHTML = panel.placeholder;
             }
