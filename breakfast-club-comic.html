@@ -12,7 +12,7 @@
         }
 
         body {
-            font-family: DejaVu Sans Mono, monospace;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
@@ -136,6 +136,7 @@
             text-decoration: none;
             display: inline-block;
             transition: background-color 0.3s;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
         }
 
         .start-reading-btn:hover {
@@ -148,7 +149,7 @@
             flex-direction: column;
             align-items: center;
             padding: 2rem 0;
-            min-height: calc(100vh - 200px);
+            min-height: calc(100vh - 300px);
         }
 
         .panel-display {
@@ -157,20 +158,22 @@
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 30px;
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
         }
 
         .panel-image {
             width: 100%;
-            height: auto;
+            height: 500px;
             border-radius: 4px;
             display: block;
+            object-fit: contain;
+            background-color: #333;
         }
 
         .panel-placeholder {
             width: 100%;
-            height: 400px;
+            height: 500px;
             background-color: #333;
             border-radius: 4px;
             display: flex;
@@ -190,7 +193,7 @@
             padding: 1.5rem;
             margin-bottom: 30px;
             text-align: center;
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
         }
 
@@ -198,12 +201,6 @@
             font-size: 1.1rem;
             margin-bottom: 10px;
             color: #999;
-        }
-
-        .panel-description {
-            font-size: 1rem;
-            color: #e0e0e0;
-            line-height: 1.6;
         }
 
         .navigation-controls {
@@ -214,6 +211,8 @@
             flex-wrap: wrap;
             max-width: 800px;
             width: 100%;
+            margin: 2rem auto;
+            padding: 0 2rem;
         }
 
         .nav-button {
@@ -230,6 +229,7 @@
             min-width: 120px;
             text-align: center;
             transition: background-color 0.3s;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
         }
 
         .nav-button:hover {
@@ -244,6 +244,14 @@
 
         .nav-button:disabled:hover {
             background-color: #1a1a1a;
+        }
+
+        .keyboard-hint {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            font-style: italic;
         }
 
         footer {
@@ -267,6 +275,19 @@
             .chapter-logo {
                 width: 150px;
                 height: 150px;
+            }
+
+            .panel-display {
+                max-width: 100%;
+                padding: 15px;
+            }
+
+            .panel-image, .panel-placeholder {
+                height: 400px;
+            }
+
+            .panel-info {
+                max-width: 100%;
             }
 
             .navigation-controls {
@@ -330,7 +351,6 @@
         <div class="reader-container">
             <div class="panel-info">
                 <div class="panel-counter" id="panelCounter">Panel 1 of 11</div>
-                <div class="panel-description" id="panelDescription">Myles starts his perfect morning with a smile and coffee</div>
             </div>
 
             <div class="panel-display">
@@ -339,12 +359,16 @@
                     <small>(Upload your panel images and replace these placeholders)</small>
                 </div>
             </div>
-
-            <div class="navigation-controls">
-                <button class="nav-button" id="prevButton" onclick="previousPanel()">← Previous</button>
-                <a href="index.html" class="nav-button">🏠 Home</a>
-                <button class="nav-button" id="nextButton" onclick="nextPanel()">Next →</button>
-            </div>
+        </div>
+        
+        <div class="navigation-controls">
+            <button class="nav-button" id="prevButton" onclick="previousPanel()">← Previous</button>
+            <a href="index.html" class="nav-button">🏠 Home</a>
+            <button class="nav-button" id="nextButton" onclick="nextPanel()">Next →</button>
+        </div>
+        
+        <div class="keyboard-hint">
+            Use ← → arrow keys to navigate
         </div>
     </div>
     
@@ -437,7 +461,6 @@
             const panel = comicPanels[currentPanelIndex];
             const panelElement = document.getElementById('currentPanel');
             const counterElement = document.getElementById('panelCounter');
-            const descriptionElement = document.getElementById('panelDescription');
 
             // Update panel display
             if (panel.imageUrl) {
@@ -456,7 +479,6 @@
 
             // Update info
             counterElement.textContent = `Panel ${panel.id} of ${comicPanels.length}`;
-            descriptionElement.textContent = panel.description;
         }
 
         function updateNavigationButtons() {
@@ -483,19 +505,38 @@
             }
         }
 
-        // Keyboard navigation
+        // Keyboard navigation - works on any page
         document.addEventListener('keydown', function(event) {
-            // Only allow keyboard navigation when comic reader is visible
-            if (document.getElementById('comic-reader').style.display === 'block') {
-                switch(event.key) {
-                    case 'ArrowLeft':
-                        previousPanel();
-                        break;
-                    case 'ArrowRight':
-                        nextPanel();
-                        break;
-                }
+            // Prevent default behavior for arrow keys to avoid page scrolling
+            if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+                event.preventDefault();
             }
+
+            switch(event.key) {
+                case 'ArrowLeft':
+                    // If we're in the comic reader, navigate panels
+                    if (document.getElementById('comic-reader').style.display === 'block') {
+                        previousPanel();
+                    }
+                    // If we're on the intro page, do nothing (or could go back to main page)
+                    break;
+                case 'ArrowRight':
+                    // If we're on the intro page, start reading
+                    if (document.getElementById('chapter-intro').style.display !== 'none') {
+                        startReading();
+                    }
+                    // If we're in the comic reader, navigate panels
+                    else if (document.getElementById('comic-reader').style.display === 'block') {
+                        nextPanel();
+                    }
+                    break;
+            }
+        });
+
+        // Focus the body element to ensure keyboard events are captured
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.tabIndex = -1;
+            document.body.focus();
         });
     </script>
 </body>
