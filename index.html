@@ -38,7 +38,7 @@
             margin-bottom: 20px;
         }
 
-        .logo-placeholder {
+        .logo-placeholder, .comic-logo {
             width: 150px;
             height: 150px;
             background-color: #333;
@@ -53,10 +53,19 @@
             transition: background-color 0.3s;
             cursor: pointer;
             margin-bottom: 1rem;
+            object-fit: cover;
         }
 
-        .logo-placeholder:hover {
+        .logo-placeholder:hover, .comic-logo:hover {
             background-color: #555;
+        }
+
+        .comic-logo {
+            width: 50px;
+            height: 50px;
+            font-size: 12px;
+            flex-shrink: 0;
+            margin-bottom: 0;
         }
 
         .site-title {
@@ -143,6 +152,7 @@
             cursor: pointer;
             transition: background-color 0.3s;
             flex-shrink: 0;
+            object-fit: cover;
         }
 
         .comic-logo:hover {
@@ -234,7 +244,8 @@
     <header class="header">
         <div class="container">
             <div class="logo-section">
-                <div class="logo-placeholder" onclick="alert('Replace this with your logo!')">
+                <img src="images/logo.png" alt="Site Logo" class="logo-placeholder" onclick="alert('Replace this with your logo!')" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="logo-placeholder" onclick="alert('Replace this with your logo!')" style="display: none;">
                     YOUR LOGO
                 </div>
                 <h1 class="site-title">kool kid comics</h1>
@@ -255,7 +266,8 @@
                     <!-- Breakfast Club Comic -->
                     <div class="comic-card">
                         <div class="comic-title-section">
-                            <div class="comic-logo" onclick="alert('Replace with your Breakfast Club comic logo!')">
+                            <img src="images/breakfast-club-logo.png" alt="Breakfast Club Logo" class="comic-logo" onclick="alert('Replace with your Breakfast Club comic logo!')" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="comic-logo" onclick="alert('Replace with your Breakfast Club comic logo!')" style="display: none;">
                                 🍳 LOGO
                             </div>
                             <h2 class="comic-title">BREAKFAST CLUB</h2>
