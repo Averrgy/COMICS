@@ -12,17 +12,16 @@
         }
 
         body {
-            font-family: 'Comic Sans MS', cursive, Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: DejaVu Sans Mono, monospace;
+            background-color: #121212;
+            color: #e0e0e0;
             min-height: 100vh;
-            color: #333;
         }
 
         .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 20px 0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            background-color: #000;
+            color: white;
+            padding: 1rem;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -42,145 +41,35 @@
         .logo-placeholder {
             width: 150px;
             height: 150px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            border-radius: 20px;
+            background-color: #333;
+            border: 1px solid #555;
+            border-radius: 8px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 18px;
             font-weight: bold;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: #e0e0e0;
+            transition: background-color 0.3s;
             cursor: pointer;
+            margin-bottom: 1rem;
         }
 
         .logo-placeholder:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            background-color: #555;
         }
 
         .site-title {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: bold;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: white;
             margin: 20px 0 10px;
         }
 
         .subtitle {
             font-size: 1.2rem;
-            color: #666;
+            color: #999;
             margin-bottom: 30px;
-        }
-
-        .main-content {
-            padding: 40px 0;
-        }
-
-        .comics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .comic-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .comic-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
-        }
-
-        .comic-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-            border-color: #667eea;
-        }
-
-        .comic-title {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .comic-description {
-            font-size: 1rem;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .comic-stats {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 25px;
-            font-size: 0.9rem;
-            color: #888;
-        }
-
-        .read-button {
-            display: block;
-            width: 100%;
-            padding: 15px 30px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        .read-button:hover {
-            background: linear-gradient(45deg, #764ba2, #667eea);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
-        }
-
-        .coming-soon {
-            background: rgba(255, 255, 255, 0.7);
-            border: 2px dashed #ccc;
-        }
-
-        .coming-soon .read-button {
-            background: linear-gradient(45deg, #95a5a6, #bdc3c7);
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-
-        .coming-soon .read-button:hover {
-            background: linear-gradient(45deg, #95a5a6, #bdc3c7);
-            transform: none;
-        }
-
-        .footer {
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            text-align: center;
-            padding: 30px 0;
-            margin-top: 60px;
         }
 
         .navigation {
@@ -191,16 +80,98 @@
         }
 
         .nav-link {
-            color: #666;
+            color: white;
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s ease;
         }
 
         .nav-link:hover {
-            color: #667eea;
+            color: #999;
         }
 
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .comics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .comic-card {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .comic-card:hover {
+            background-color: #2a2a2a;
+            border-color: #555;
+        }
+
+        .comic-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e0e0e0;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.5rem;
+        }
+
+        .comic-description {
+            font-size: 1rem;
+            color: #e0e0e0;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .comic-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .read-button {
+            display: block;
+            width: 100%;
+            padding: 0.7rem 1.5rem;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 1rem;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .read-button:hover {
+            background-color: #555;
+        }
+
+        .footer {
+            background-color: #000;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: auto;
+        }
+
+        /* Responsive adjustments */
         @media (max-width: 768px) {
             .site-title {
                 font-size: 2rem;
@@ -214,6 +185,10 @@
             .navigation {
                 flex-direction: column;
                 gap: 15px;
+            }
+
+            .main-content {
+                padding: 1rem;
             }
         }
     </style>
@@ -255,35 +230,6 @@
                         </div>
                         <a href="breakfast-club-comic.html" class="read-button">Start Reading →</a>
                     </div>
-
-                    <!-- Placeholder for future comics -->
-                    <div class="comic-card coming-soon">
-                        <h2 class="comic-title">🚀 Next Adventure</h2>
-                        <p class="comic-description">
-                            Something amazing is coming soon! Stay tuned for the next incredible story 
-                            that will take you on an unforgettable journey.
-                        </p>
-                        <div class="comic-stats">
-                            <span>📖 Coming Soon</span>
-                            <span>⭐ Mystery</span>
-                            <span>🕒 TBD</span>
-                        </div>
-                        <div class="read-button">Coming Soon...</div>
-                    </div>
-
-                    <div class="comic-card coming-soon">
-                        <h2 class="comic-title">🎭 Future Epic</h2>
-                        <p class="comic-description">
-                            Another fantastic comic is in development! Get ready for more laughs, 
-                            adventures, and memorable characters.
-                        </p>
-                        <div class="comic-stats">
-                            <span>📖 In Progress</span>
-                            <span>⭐ Adventure</span>
-                            <span>🕒 TBD</span>
-                        </div>
-                        <div class="read-button">In Development...</div>
-                    </div>
                 </div>
             </section>
         </div>
@@ -292,7 +238,6 @@
     <footer class="footer">
         <div class="container">
             <p>&copy; 2025 Your Comics Hub. All rights reserved.</p>
-            <p>Made with ❤️ for comic lovers everywhere</p>
         </div>
     </footer>
 
